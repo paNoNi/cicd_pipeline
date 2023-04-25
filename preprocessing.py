@@ -93,18 +93,3 @@ def preproc(text):
     return copy_text
 
 
-def get_dataset(df: JsonReader, size: int):
-    dataset = pd.DataFrame(data=[], columns=['reviewText', 'overall'])
-    pbar = tqdm(total=size)
-    for i, chunk in enumerate(df):
-        chunk.dropna(inplace=True)
-        if i == size:
-            break
-
-        chunk['reviewText'] = chunk['reviewText'].apply(preproc)
-        dataset = pd.concat([dataset, chunk[['reviewText', 'overall']]])
-        pbar.update(1)
-
-    dataset['overall'] = dataset['overall'].astype(int)
-    return dataset.reviewText.values, dataset.overall.values
-

@@ -19,8 +19,9 @@ def train(data, target):
     text_clf.fit(X_train, y_train)
 
     predicted = text_clf.predict(X_test)
+    print(f'Accuracy: {np.mean(predicted == y_test)}')
 
-    print(f'Accuracy: {round(float(np.mean(predicted == y_test)), 3) * 100}%')
+    return predicted
 
 
 def get_dataset(df: pd.DataFrame):
